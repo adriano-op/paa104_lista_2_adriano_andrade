@@ -913,7 +913,8 @@ int main(int argc, char **argv) {
 //    grafo.adicionaVertice(2, 6);
 //    grafo.adicionaVertice(6, 7);
 //
-//
+
+
 //    grafo.BFS(0); // nó raiz = 0
 
 
