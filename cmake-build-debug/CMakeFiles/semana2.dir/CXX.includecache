@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/adriano/Área de Trabalho/semana2/main.cpp
+cstdlib
+-
+vector
+-
+climits
+-
+math.h
+-
+iostream
+-
+locale.h
+-
+cstring
+-
+ctime
+-
+bits/stdc++.h
+-
+algorithm
+-
+
