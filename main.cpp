@@ -2,7 +2,7 @@
 #include <vector>
 #include <climits>
 #include <math.h>
-//#include <matplot/matplot.h>
+#include <matplot/matplot.h>
 using point = std::pair<double, double>;
 using namespace std;
 
@@ -499,8 +499,7 @@ void selectionSort(int v[], int n) {
         v[i] = aux;
     }
 
-    cout << "\n SelectionSort: Elementos do array em ordem crescente:\n" << endl;
-    ImprimeVetor(v, n);
+
 }
 // ------------------------  Inicio selectionSort -------------------------------
 
@@ -524,9 +523,9 @@ void Bubblesort(int v[], int TAM) {
     }
 
 
-    cout << "\n Bubblesort: Elementos do array em ordem crescente:\n" << endl;
-    ImprimeVetor(v, TAM);
-    cout << " " << endl;
+//    cout << "\n Bubblesort: Elementos do array em ordem crescente:\n" << endl;
+//    ImprimeVetor(v, TAM);
+//    cout << " " << endl;
 }
 
 void inicializaVetor(int v[], int tam) {
@@ -647,9 +646,9 @@ int main(int argc, char **argv) {
 
 
 //    cout << "Algoritmo N° 1: Bubblesort" << endl;
-//    cout << "Insira um valor, para que função gere as entradas do sistema: ";
-//    int TAM;
-//    cin >> TAM;
+//
+//    int TAM =30; //  cout << "Insira um valor, para que função gere as entradas do sistema: ";
+//
 //
 //    int buble[TAM];
 //    inicializaVetor(buble, TAM);
@@ -659,10 +658,39 @@ int main(int argc, char **argv) {
 //    cout << "\n Ordem atual dos itens no array:\n" << endl;
 //    ImprimeVetor(buble, TAM);
 //    Bubblesort(buble, TAM);
+//    cout << "\n Bubblesort: Elementos do array em ordem crescente:\n" << endl;
+//    ImprimeVetor(buble, TAM);
+//    cout << " " << endl;
 
 
-
-
+//   // para teste de desempenho
+//    std::vector<int> ns({ 2000,4000,5000,6000,7000,9000,10000});
+//    std::vector<double> time({});
+//
+//
+//    for (int n : ns) {
+//        int TAM=n;
+//        auto start = std::chrono::system_clock::now();
+//        int buble[TAM];
+//        inicializaVetor(buble, TAM);
+//
+//        Bubblesort(buble, TAM);
+//
+//        auto finish= std::chrono::system_clock::now();
+//
+//        std::chrono::duration<double> elapsed = finish - start;
+//        std::cout << "N = " << n << " : " << elapsed.count() << std::endl;
+//
+//        time.push_back(elapsed.count());
+//    }
+//
+//    matplot::plot(ns,time, "-s")
+//            ->line_width(5)
+//            .marker_size(10)
+//            .marker_color("g")
+//            .marker_face_color({.5,.5,.5});
+//
+//    matplot::show();
 
 
 //2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
@@ -675,11 +703,10 @@ int main(int argc, char **argv) {
 //----------------------------------------------------------------------------------------------------------------------
 
 
-
+//
 //    cout << "Algoritmo N° 2: selectionSort" << endl;
-//    cout << "Insira um valor, para que função gere as entradas do sistema: ";
-//    int TAM;
-//    cin >> TAM;
+//
+//    int TAM =50;  cout << "Insira um valor, para que função gere as entradas do sistema: ";
 //
 //    if (TAM == 0) {
 //        cout << "\n N==0,  programa será encerrado. " << endl;
@@ -693,8 +720,39 @@ int main(int argc, char **argv) {
 //    cout << "Ordem atual dos itens no array:\n" << endl;
 //    ImprimeVetor(select, TAM);
 //    selectionSort(select, TAM);
+//    cout << "\n SelectionSort: Elementos do array em ordem crescente:\n" << endl;
+//    ImprimeVetor(select, TAM);
+//    cout <<  endl;
 
+  // //para teste de desempenho
 
+//    std::vector<int> ns({ 2000,4000,5000,6000,7000,9000,10000});
+//    std::vector<double> time({});
+//
+//
+//    for (int n : ns) {
+//        int TAM=n;
+//        auto start = std::chrono::system_clock::now();
+//        int buble[TAM];
+//        inicializaVetor(buble, TAM);
+//
+//        selectionSort(buble, TAM);
+//
+//        auto finish= std::chrono::system_clock::now();
+//
+//        std::chrono::duration<double> elapsed = finish - start;
+//        std::cout << "N = " << n << " : " << elapsed.count() << std::endl;
+//
+//        time.push_back(elapsed.count());
+//    }
+//
+//    matplot::plot(ns,time, "-s")
+//            ->line_width(5)
+//            .marker_size(10)
+//            .marker_color("g")
+//            .marker_face_color({.5,.5,.5});
+//
+//    matplot::show();
 
 
 //3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
@@ -707,7 +765,6 @@ int main(int argc, char **argv) {
 //    cout << "Algoritmo N° 3: SequentialSearch2" << endl;
 //    cout << "Insira um valor, para que função gere as entradas do sistema: ";
 //    int TAM;
-//    cin >> TAM;
 //
 //    if (TAM == 0) {
 //        cout << "\n N==0,  programa será encerrado. " << endl;
@@ -731,9 +788,38 @@ int main(int argc, char **argv) {
 //    } else {
 //        cout << "Elemento não encontrado " << endl;
 //    }
-
-
-
+//    unsigned seed = time(0);
+//    srand(seed);
+//
+//    std::vector<int> ns({ 2000,4000,5000,6000,7000,9000,10000});
+//    std::vector<double> time({});
+//
+//
+//    for (int n : ns) {
+//
+//        int TAM=n;
+//        auto start = std::chrono::system_clock::now();
+//        int array[TAM];
+//        int elemt =  ceil(rand() % n);
+//        inicializaVetor(array, TAM);
+//
+//        int w =  SequentialSearch2(array, elemt, TAM);
+//
+//        auto finish= std::chrono::system_clock::now();
+//
+//        std::chrono::duration<double> elapsed = finish - start;
+//        std::cout << "N = " << n << " : " << elapsed.count() << std::endl;
+//
+//        time.push_back(elapsed.count());
+//    }
+//
+//    matplot::plot(ns,time, "-s")
+//            ->line_width(5)
+//            .marker_size(10)
+//            .marker_color("g")
+//            .marker_face_color({.5,.5,.5});
+//
+//    matplot::show();
 
 //4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444
 //----------------------------------------------------------------------------------------------------------------------

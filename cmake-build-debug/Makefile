@@ -67,10 +67,10 @@ RM = /home/adriano/Downloads/CLion-2021.1/clion-2021.1/bin/cmake/linux/bin/cmake
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/adriano/Área de Trabalho/semana2"
+CMAKE_SOURCE_DIR = "/media/adriano/DATA/Google Drive/Mestrado/UFOP/2020/PCC104/lista/semana2"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/adriano/Área de Trabalho/semana2/cmake-build-debug"
+CMAKE_BINARY_DIR = "/media/adriano/DATA/Google Drive/Mestrado/UFOP/2020/PCC104/lista/semana2/cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/adriano/Área de Trabalho/semana2/cmake-build-debug/CMakeFiles" "/home/adriano/Área de Trabalho/semana2/cmake-build-debug//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/media/adriano/DATA/Google Drive/Mestrado/UFOP/2020/PCC104/lista/semana2/cmake-build-debug/CMakeFiles" "/media/adriano/DATA/Google Drive/Mestrado/UFOP/2020/PCC104/lista/semana2/cmake-build-debug//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/adriano/Área de Trabalho/semana2/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/media/adriano/DATA/Google Drive/Mestrado/UFOP/2020/PCC104/lista/semana2/cmake-build-debug/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -142,6 +142,32 @@ semana2/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/semana2.dir/build.make CMakeFiles/semana2.dir/build
 .PHONY : semana2/fast
 
+#=============================================================================
+# Target rules for targets named nodesoup
+
+# Build rule for target.
+nodesoup: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nodesoup
+.PHONY : nodesoup
+
+# fast build rule for target.
+nodesoup/fast:
+	$(MAKE) $(MAKESILENT) -f matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/build.make matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/build
+.PHONY : nodesoup/fast
+
+#=============================================================================
+# Target rules for targets named matplot
+
+# Build rule for target.
+matplot: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 matplot
+.PHONY : matplot
+
+# fast build rule for target.
+matplot/fast:
+	$(MAKE) $(MAKESILENT) -f matplotplusplus/source/matplot/CMakeFiles/matplot.dir/build.make matplotplusplus/source/matplot/CMakeFiles/matplot.dir/build
+.PHONY : matplot/fast
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -177,6 +203,8 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... matplot"
+	@echo "... nodesoup"
 	@echo "... semana2"
 	@echo "... main.o"
 	@echo "... main.i"
