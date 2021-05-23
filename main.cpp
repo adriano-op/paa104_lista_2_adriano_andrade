@@ -241,6 +241,7 @@ int caixeiroViajante(int matrizV[tamMatriz][tamMatriz]) {
 
         cout << "   " << endl;
 
+
         for (int i = 0; i < vizinho.size(); i++) {
             somaPesoCaminhoAtual = 0;
             int y = vizinho[i];
