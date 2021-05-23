@@ -3,6 +3,7 @@
 #include <climits>
 #include <math.h>
 #include <matplot/matplot.h>
+
 using point = std::pair<double, double>;
 using namespace std;
 
@@ -59,8 +60,8 @@ public:
 // Depth-First Search - DFS) é um algoritmo usado para realizar uma busca ou travessia numa árvore, estrutura de árvore
 // ou grafo. Intuitivamente, o algoritmo começa num nó raiz (selecionando algum nó como sendo o raiz, no caso de um grafo)
 // e explora tanto quanto possível cada um dos seus ramos, antes de retroceder(backtracking).
-//Thus, for the adjacencymatrix representation, the traversal time is in O(V^2),and for the adjacency listrepresentation,
-// it  is  in O(|V|+|E|) where|V|and|E| are  the  number  of  thegraph’s vertices and edges, respectively.
+// Assim, para a representação da matriz de adjacência, o tempo de passagem é em O (V ^ 2), e para a representação de listre de adjacência,
+// está em O (| V | + | E |) onde | V | e | E | são o número de vértices e arestas do gráfico, respectivamente.
     void DFS() {
         //queue<int>fila;
         vector<bool> visitado(tamGrafo); // guarda o vetor visitado.
@@ -109,8 +110,8 @@ public:
      */
 //Considerando um grafo representado em listas de adjacência, o pior caso, aquele em que todos os vértices e arestas
 // são explorados pelo algoritmo,
-// Thus, for the adjacencymatrix representation, the traversal time is in O(V^2),and for the adjacency listrepresentation,
-// it  is  in O(|V|+|E|) where|V|and|E| are  the  number  of  thegraph’s vertices and edges, respectively.
+// Assim, para a representação da matriz de adjacência, o tempo de passagem é em O (V ^ 2), e para a representação de listre de adjacência,
+// está em O (| V | + | E |) onde | V | e | E | são o número de vértices e arestas do gráfico, respectivamente.
 //  que significa o número de operações sobre todos os vértices que possui uma complexidade constante O ( 1 )
 //  para cada vértice uma vez que t.o.d.o vértice é enfileirado e desenfileirado uma unica vez.
     void BFS(int no_raiz) {
@@ -319,10 +320,13 @@ int orientacao(Point p, Point q, Point r) {
 }
 
 
-//Um conjunto de pontos (finitos ou infinitos) no plano é chamado de convexo se, para quaisquer dois pontos p e q no
-// conjunto, t.o.d.o o segmento de linha com as extremidades em p e q pertence ao conjunto.
-//What  is  the  time  efficiency  of  this  algorithm?  It  is  in O(n^3)
-
+// Algoritmo em C ++ para encontrar a casca convexa de um conjunto de pontos em um plano.
+// Achar os extremos requer tempo O(n)
+// Melhor caso: T(n)=2T(n/2)+O(n) | Solução: O(n log n)
+//Pior caso: quando cada partição esta extremanente desbalanceada:
+//           T(n)=T(n-1)+O(n)
+//               =T(n-1)+cn
+//Ou seja, O(n²) -> pior caso quadrático.
 void convexHull(Point points[], int n) {
     // Deve haver pelo menos 3 pontos
     if (n < 3) {
@@ -333,10 +337,10 @@ void convexHull(Point points[], int n) {
     vector<Point> hull; //
 
     // Encontra o ponto mais à esquerda
-    int left = 0;
-    for (int i = 1; i < n; i++) {
-        if (points[i].x < points[left].x) {
-            left = i;
+    int left = 0; // anterior
+    for (int i = 1; i < n; i++) { // encontra a ultima posição do menor ponto
+        if (points[i].x < points[left].x) { // prox < anterior
+            left = i; // anterior =i;
         }
     }
 
@@ -354,7 +358,7 @@ void convexHull(Point points[], int n) {
         //Se qualquer ponto 'i' for mais anti-horário do que q, atualize q.
         q = (p + 1) % n;
         for (int i = 0; i < n; i++) {
-            // // Se i for mais anti-horário do que o q atual, então // atualize o q
+            // // Se i for mais anti-horário do que o q atual, então atualize o q
             if (orientacao(points[p], points[i], points[q]) == 2) {
                 q = i;
             }
@@ -376,20 +380,22 @@ void convexHull(Point points[], int n) {
 // Para ser mais preciso, queremos findi - o índice do caractere mais à esquerda da primeira substring correspondente
 
 // O(n)
-int bruteForceStringMatch(char palavra[], char termo[]) {
+int bruteForceStringMatch(char texto[], char termo[]) {
     // baseado no ALGORITHM BruteForceStringMatch(T[0..n−1],P[0..m−1]
-    cout << " palavra: " << strlen(palavra) << endl;
-    cout << " termo : " << strlen(termo) << endl;
+    cout << "Tamanho do texto: " << strlen(texto) << endl;
+    cout << "Tamanho do termo : " << strlen(termo) << endl;
 
-    if (strlen(palavra) < strlen(termo))
+    if (strlen(texto) < strlen(termo))
         return -1;
 
-    if (strlen(palavra) == 0 || strlen(termo) == 0) {
+    if (strlen(texto) == 0 || strlen(termo) == 0) {// verifica se a e=string não é vazia
         return -1;
     }
-    for (int i = 0; i < strlen(palavra) - strlen(termo) + 1; i++) {
+    // vai de 0 a diferença de texto e termo
+    for (int i = 0; i < strlen(texto) - strlen(termo) + 1; i++) {
         int j = 0;
-        while (j < strlen(termo) && palavra[i + j] == termo[j]) {
+        //Enquanto j menor  e houver uma correspondeica parcial com a prox posição
+        while (j < strlen(termo) && texto[i + j] == termo[j]) {// duas operações baiscas (... & ...)
             j++;
         }
         if (j == strlen(termo)) {
@@ -421,12 +427,14 @@ void ImprimeVetor(int v[], int Tam) {
 // ------------------------  Fim bruteForceClosestPair -------------------------------
 // ------------------------                            -------------------------------
 // ------------------------                            -------------------------------
+//O problema do par mais próximo exige encontrar os dois pontos mais próximos em um conjunto de n pontos.
+//O(n²)
 
 double bruteForceClosestPair(vector<point> vetorPair) {
     //O algoritmo abaixo calcula a distância entre os dois pontos mais próximos;
     //Baseado no ALGORITHM BruteForceClosestPair(P)
 
-    cout << "Tamnho vetor= " << vetorPair.size() << endl;
+    cout << "Tamanho vetor= " << vetorPair.size() << endl;
 
     if (vetorPair.size() < 2) {
         cout << "O vetor deve possuir no minimo dois elemntos." << endl;
@@ -441,18 +449,19 @@ double bruteForceClosestPair(vector<point> vetorPair) {
     double distancia_min = __DBL_MAX__; //  é o número máximo de ponto flutuante finito representável.
 
     for (int i = 0; i < vetorPair.size() - 1; i++) {
-        for (int j = i + 1; j < vetorPair.size(); j++) {
+        for (int j = i + 1; j < vetorPair.size(); j++) {  //2 (n-1)(n-1) = O(n²)
             //calcula a distancia min da subtração do quadrado entre dois pontos.
-            double p1 = pow(vetorPair[i].first - vetorPair[j].first, 2) +
-                        pow(vetorPair[i].second - vetorPair[j].second, 2);
+            double p1 =
+                    pow(vetorPair[i].first - vetorPair[j].first, 2) + pow(vetorPair[i].second - vetorPair[j].second, 2);
 
-            if (distancia_min > p1) {
-                distancia_min = p1;
-            }
+            distancia_min = min(distancia_min, sqrt(p1));
+//            if (distancia_min > p1) {
+//                distancia_min = p1;
+//            }
         }
     }
 
-    return sqrt(distancia_min); //calcula a raiz
+    return distancia_min; //calcula a raiz
 }
 
 
@@ -480,33 +489,50 @@ int SequentialSearch2(int v[], int k, int Tam) {
     }
 }
 
-//Thus, selection sort is a O(n^2)algorithm on all inputs.
+//  selection sort é  O(n^2)
 //Começamos a ordenação por seleção examinando toda a lista fornecida para encontrar seu menor elemento e trocá-lo pelo
 // primeiro elemento, colocando o menor elemento em sua posição final na lista ordenada.
 // Em seguida, examinamos a lista, começando com o segundo elemento, para encontrar o menor entre os últimos n − 1
 // elementos e trocá-lo pelo segundo elemento, colocando o segundo menor elemento em sua posição final
-void selectionSort(int v[], int n) {
-    int i, j, min, aux;
-    for (i = 0; i < n - 2; i++) {
-        min = i;
-        for (j = i + 1; j < n - 1; j++)
-            if (v[j] < v[min]) {
-                min = j;
+//https://programmercave0.github.io/blog/2017/08/29/C++-Selection-sort-using-STL
+template<typename T>
+void selectionSort(std::vector<T> &arr) {
+    typedef typename std::vector<T>::iterator Itr;
+    Itr itr = arr.begin();
+    while (itr != arr.end()) {
+        Itr itr_min = itr;
+        for (Itr i = itr + 1; i != arr.end(); i++) {
+            if (*i < *itr_min) {
+                itr_min = i;
             }
-
-        aux = v[min];
-        v[min] = v[i];
-        v[i] = aux;
+        }
+        std::iter_swap(itr, itr_min);
+        itr++;
     }
+    printVector(arr);
+}
 
+void selectionSort(int arr[], int n) {
+    int i, j, min_idx;
 
+// Limite de movimento um a um do submatriz não classificado
+    for (i = 0; i < n - 1; i++) {
+        // Encontre o elemento mínimo em uma matriz não classificada
+        min_idx = i;
+        for (j = i + 1; j < n; j++)
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
+
+        // Troque o elemento mínimo encontrado pelo primeiro elemento
+        swap(arr[min_idx], arr[i]);
+    }
 }
 // ------------------------  Inicio selectionSort -------------------------------
 
 
 //Another brute-force application to the sorting problem is to compare adjacentelements  of  the  list  and  exchange
 // them  if  they  are  out  of  order.
-// O(n^2).
+// O(n²).
 void Bubblesort(int v[], int TAM) {
     //baseado no ALGORITHM BubbleSort(A[0..n−1]),
     //no livro /Introduction to the Design and Analysis of Algorithms (3rd ed.) [Levitin 2011-10-09].pdf
@@ -646,10 +672,7 @@ int main(int argc, char **argv) {
 
 
 //    cout << "Algoritmo N° 1: Bubblesort" << endl;
-//
 //    int TAM =30; //  cout << "Insira um valor, para que função gere as entradas do sistema: ";
-//
-//
 //    int buble[TAM];
 //    inicializaVetor(buble, TAM);
 //
@@ -663,7 +686,7 @@ int main(int argc, char **argv) {
 //    cout << " " << endl;
 
 
-//   // para teste de desempenho
+    // para teste de desempenho
 //    std::vector<int> ns({ 2000,4000,5000,6000,7000,9000,10000});
 //    std::vector<double> time({});
 //
@@ -703,16 +726,14 @@ int main(int argc, char **argv) {
 //----------------------------------------------------------------------------------------------------------------------
 
 
-//
 //    cout << "Algoritmo N° 2: selectionSort" << endl;
 //
-//    int TAM =50;  cout << "Insira um valor, para que função gere as entradas do sistema: ";
+//    int TAM =10;  cout << "Insira um valor, para que função gere as entradas do sistema: ";
 //
 //    if (TAM == 0) {
 //        cout << "\n N==0,  programa será encerrado. " << endl;
 //        return 0;
 //    }
-//
 //    int select[TAM];
 //    inicializaVetor(select, TAM);
 //    cout << "array size: " << TAM << "\n";
@@ -724,7 +745,7 @@ int main(int argc, char **argv) {
 //    ImprimeVetor(select, TAM);
 //    cout <<  endl;
 
-  // //para teste de desempenho
+    // //para teste de desempenho
 
 //    std::vector<int> ns({ 2000,4000,5000,6000,7000,9000,10000});
 //    std::vector<double> time({});
@@ -831,26 +852,26 @@ int main(int argc, char **argv) {
 
 
 
-//    cout << "Algoritmo N° 4: bruteForceStringMatch" << endl;
-//
-//    char letras[50];
-//    char palavra[50];
-//
-//    cout << "Insira uma palavra: " << endl;
-//    cin.getline(palavra, 50);
-//
-//    cout << " Insira o termo da busca : " << endl;
-//    cin.getline(termo, 50);
-//
-//    int index = bruteForceStringMatch(palavra, termo);
-//
-//
-//    if (index == -1) {
-//        cout << "Termo não encontrado" << endl;
-//    }
-//    else {
-//        cout << "Termo encontrado na posição: " << index << endl;
-//    }
+    cout << "Algoritmo N° 4: bruteForceStringMatch" << endl;
+
+    char termo[50] = "calcular";
+    char texto[300] = "Quickhull é um método de calcular o casco convexo de um conjunto finito de";
+
+
+    cout << "Frase: " ;
+    cout << texto << endl;
+
+    cout << "Termo da busca : " ;
+    cout << termo << endl;
+
+    int index = bruteForceStringMatch(texto, termo);
+
+
+    if (index == -1) {
+        cout << "Termo não encontrado" << endl;
+    } else {
+        cout << "Termo encontrado na posição: " << index << endl;
+    }
 
 
 
@@ -866,8 +887,8 @@ int main(int argc, char **argv) {
 // Ao iniciar a execução da função, o sistema gera o tamanho do vetor e inicializa automaticamente
 // com as coordenadas aleatorias de 0 a 100.
 // de posse do vector de coordenadas, a função calcula a distância entre os dois pontos mais próximos;
-
-
+//O(n²)
+//
 //    cout << "Algoritmo N°5: BruteForceClosestPair" << endl;
 //    unsigned seed = time(0);
 //    srand(seed);
@@ -878,7 +899,7 @@ int main(int argc, char **argv) {
 //        pair.push_back(point((double) (rand() % 100), (double) (rand() % 100)));
 //
 //    cout << bruteForceClosestPair(pair) << endl;
-
+//
 
 
 //6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
@@ -898,28 +919,22 @@ int main(int argc, char **argv) {
 
 
 //    Point points[] = {
-//            {0, 3},
-//            {2, 2},
-//            {1, 1},
-//            {2, 1},
-//            {3, 0},
-//            {0, 0},
-//            {3, 3}
-//    };
+//            {16,3}, {12,17}, {0,6}, {-4,-6}, {16,6}, {16,-7}, {16,-3}, {17,-4}, {5,19}, {19,-8}, {3,16}, {12,13}, {3,-4}, {17,5}, {-3,15}, {-3,-9}, {0,11}, {-9,-3}, {-4,-2}, {12,10}
+//    };// (-9,-3), (-3,-9), (19,-8), (17,5), (12,17), (5,19) , (-3,15)
 //
 //    int tam = sizeof(points) / sizeof(points[0]);
 //    convexHull(points, tam);
-
+//
 
     //   https://github.com/adriano-op/paa104_lista_2_adriano_andrade.git
 
-    // exemplo do professor
+    //exemplo do professor
 
 //    srand((unsigned int) time(0));
 //    int n = 15;
 //    std::vector<int> x = get_vals(n);
 //    std::vector<int> y = get_vals(n);
-////
+//
 //    std::vector<std::vector<int>> segments= get_convex_hull(x,y);
 //    print_segments(segments);
 //    //   plot_suttfy();
