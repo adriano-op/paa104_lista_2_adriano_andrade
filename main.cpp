@@ -228,7 +228,7 @@ int caixeiroViajante(int matrizV[tamMatriz][tamMatriz]) {
     int countCaminhoTotal = 0, countMenorCaminho = 0;
 
     for (int i = 0; i < tamMatriz - 1; i++) {
-        vizinho.push_back(i);
+        vizinho.push_back(i); // inicializa o vetor
     }
 
     do {
@@ -852,27 +852,27 @@ int main(int argc, char **argv) {
 
 
 
-    cout << "Algoritmo N° 4: bruteForceStringMatch" << endl;
-
-    char termo[50] = "calcular";
-    char texto[300] = "Quickhull é um método de calcular o casco convexo de um conjunto finito de";
-
-
-    cout << "Frase: " ;
-    cout << texto << endl;
-
-    cout << "Termo da busca : " ;
-    cout << termo << endl;
-
-    int index = bruteForceStringMatch(texto, termo);
-
-
-    if (index == -1) {
-        cout << "Termo não encontrado" << endl;
-    } else {
-        cout << "Termo encontrado na posição: " << index << endl;
-    }
-
+//    cout << "Algoritmo N° 4: bruteForceStringMatch" << endl;
+//
+//    char termo[50] = "calcular";
+//    char texto[300] = "Quickhull é um método de calcular o casco convexo de um conjunto finito de";
+//
+//
+//    cout << "Frase: " ;
+//    cout << texto << endl;
+//
+//    cout << "Termo da busca : " ;
+//    cout << termo << endl;
+//
+//    int index = bruteForceStringMatch(texto, termo);
+//
+//
+//    if (index == -1) {
+//        cout << "Termo não encontrado" << endl;
+//    } else {
+//        cout << "Termo encontrado na posição: " << index << endl;
+//    }
+//
 
 
 
@@ -953,16 +953,16 @@ int main(int argc, char **argv) {
 //----------------------------------------------------------------------------------------------------------------------
 
 
-//    int matriz[tamMatriz][tamMatriz] = {
-//            {0,  2,  4,  6,  8},
-//            {10, 0,  14, 16, 18},
-//            {20, 22, 0,  26, 28},
-//            {30, 32, 34, 0,  38},
-//            {40, 42, 44, 46, 0}
-//    };
-//
-//
-//    caixeiroViajante(matriz);
+    int matriz[tamMatriz][tamMatriz] = {
+            {0,  2,  4,  6,  8},
+            {10, 0,  14, 16, 18},
+            {20, 22, 0,  26, 28},
+            {30, 32, 34, 0,  38},
+            {40, 42, 44, 46, 0}
+    };
+
+
+    caixeiroViajante(matriz);
 
 
 
