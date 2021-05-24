@@ -216,57 +216,74 @@ int permuta(vector<int> vetor, int inf, int sup) {
         }
     }
 }
+
+
 //O problema pode ser convenientemente modelado por um gráfico ponderado, com os vértices do gráfico representando as
 // cidades e os pesos das arestas especificando as distâncias. Então, o problema pode ser classificado como o problema
 // de encontrar o menor circuito de Hamiltoniano do gráfico
 
 // O(n!)
 int caixeiroViajante(int matrizV[tamMatriz][tamMatriz]) {
-    vector<int> vizinho; // armazena as permutações da cidades há serem visitadas.
-    int aux = 0;
-    int pesoMinCaminho = 1000000000; // armazenar peso mínimo do menor caminho.
+    std::vector<int> vizinho;  // armazena as permutações da cidades há serem visitadas.
+    std::vector<vector<int>> vetorMenorCaminho; //armazena as permutações, para descobrir qual o vertice de menor caminho
+    int contPermutacao = 0; // soma chamada permutação (posição)
+    int pesoMinCaminho = INT_MAX; // armazenar peso mínimo do vetorMenorCaminho caminho.
     int countCaminhoTotal = 0, countMenorCaminho = 0;
+    int  contP = 0; // conta a qtidade de permutação de menor peso
 
-    for (int i = 0; i < tamMatriz - 1; i++) {
-        vizinho.push_back(i); // inicializa o vetor
+    for (int i = 0; i < tamMatriz; i++) {
+        vizinho.push_back(i); // inicializa o vetor de permutação.
     }
 
     do {
+        vetorMenorCaminho.push_back(vizinho);
+
         int somaPesoCaminhoAtual = 0;
-        int x = aux;
+        int x = 0;// contP;
+//        for (int i = 0; i < vizinho.size(); i++) {
+//            cout << "   " << vizinho[i]; // imprime o vetor
+//        }
+       // cout << " ----- " << contPermutacao << endl;
 
+        contPermutacao++;
+        // a cada nova permutação, os dados são inicializados
         for (int i = 0; i < vizinho.size(); i++) {
-            cout << "   " << vizinho[i]; // imprime o vetor
-        }
-
-        cout << "   " << endl;
-
-
-        for (int i = 0; i < vizinho.size(); i++) {
-            somaPesoCaminhoAtual = 0;
             int y = vizinho[i];
 
-            cout << "[ " << x << " , " << y << " ]  matrizV[x][y]:  " << matrizV[x][y];
-            cout << " " << endl;
+//            cout << "[ " << x << " , " << y << " ]  matrizV[x][y]:  " << matrizV[x][y];
+//            cout << " " << endl;
+//            ----- 23
+//            [ 0 , 3 ]  matrizV[x][y]:  20
+//            [ 3 , 2 ]  matrizV[x][y]:  30
+//            [ 2 , 1 ]  matrizV[x][y]:  35
+//            [ 1 , 0 ]  matrizV[x][y]:  10
 
             somaPesoCaminhoAtual += matrizV[x][y];
-            cout << " soma Peso Caminho: " << somaPesoCaminhoAtual << endl;
-            x = vizinho[i];
+//            cout << " soma Peso Caminho: " << somaPesoCaminhoAtual << endl;
+            x = y;
         }
-        // somaPesoCaminhoAtual += matrizV[x][aux]; // matriz[x][0]
+        somaPesoCaminhoAtual += matrizV[x][0]; // matriz[x][0]
 
-
-        if (pesoMinCaminho > somaPesoCaminhoAtual) {
+        //compara o peso do vetorMenorCaminho caminho
+        if (pesoMinCaminho >= somaPesoCaminhoAtual) {
             pesoMinCaminho = somaPesoCaminhoAtual;
-            countMenorCaminho++;
+            countMenorCaminho++; // qtidade de caminhos com o msm ponto
+            contP = contPermutacao - 1;
         }
 
         countCaminhoTotal++;
+        //enquanto existir uma permutação, a função irá retornar TRUE.
     } while (proximaPermutacao(vizinho.begin(), vizinho.end()));
 
+    cout <<  endl;
+    cout << "Total de caminhos percorridos: " << countCaminhoTotal << endl;
+    cout << "O vetorMenorCaminho peso: " << pesoMinCaminho << " ,no caminho: " << contP << endl;
+    cout << "Permutação: " ;
+    for (int i = 0; i < tamMatriz; i++) {
+        cout <<  vetorMenorCaminho[contP][i] << " ";
+    }
 
-    cout << "Total de caminhos percorridos: " << countCaminhoTotal;
-    cout << "\n O menor peso: " << pesoMinCaminho << " ,no caminho: " << countMenorCaminho << endl;
+
     return pesoMinCaminho;
 }
 
@@ -953,13 +970,20 @@ int main(int argc, char **argv) {
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 
-
     int matriz[tamMatriz][tamMatriz] = {
             {0,  2,  4,  6,  8},
-            {10, 0,  14, 16, 18},
-            {20, 22, 0,  26, 28},
-            {30, 32, 34, 0,  38},
-            {40, 42, 44, 46, 0}
+            {2,  0,  14, 16, 18},
+            {4, 14,  0,  26, 28},
+            {6, 16, 26,   0, 38},
+            {8, 18, 28,  38,  0}
+
+
+//              1   2   3   4   5
+//          1  {0,  2,  4,  6,  8},
+//          2  {2,  0,  14, 16, 18},
+//          3  {4, 14,  0,  26, 28},
+//          4  {6, 16, 26,  0,  38},
+//          5  {8, 18, 28, 38,   0}
     };
 
 
