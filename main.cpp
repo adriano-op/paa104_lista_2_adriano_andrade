@@ -264,13 +264,13 @@ int caixeiroViajante(int matrizV[tamMatriz][tamMatriz]) {
 //            cout << " soma Peso Caminho: " << somaPesoCaminhoAtual << endl;
             x = y;
         }
-        somaPesoCaminhoAtual += matrizV[x][0]; // matriz[x][0]
+        somaPesoCaminhoAtual += matrizV[x][0]; // soma coma primeira posição [0][0]
 
         //compara o peso do vetorMenorCaminho caminho
         if (pesoMinCaminho >= somaPesoCaminhoAtual) {
             pesoMinCaminho = somaPesoCaminhoAtual;
             countMenorCaminho++; // qtidade de caminhos com o msm ponto
-            contP = contPermutacao - 1;
+            contP = contPermutacao - 1;  // para saber em qual caminho, está o menor peso.
         }
 
         countCaminhoTotal++;
@@ -300,22 +300,24 @@ int caixeiroViajante(int matrizV[tamMatriz][tamMatriz]) {
 //O problema da mochila é um problema de otimização combinatória: dado um conjunto de itens, cada um com um peso e
 // um valor, determine o número de cada item a incluir em uma coleção de modo que o peso total seja menor ou igual a
 // um determinado limite e o valor total é o maior possível.
-//O(n).
-int knaps(int tamanhoMochila, int peso[], int valor[], int capacidade, int i) {
-    int somarValor, contaValor;
+//A complexidade de tempo dessa solução recursiva é exponencial (2^n).
+int knaps(int tamanhoMochila, int peso[], int valor[], int capacidade, int itens) {
+    int somarPesoMochila, contaValor;
 
-    if (i == tamanhoMochila || capacidade <= 0) {
+    //caso base
+    if (itens == tamanhoMochila || capacidade <= 0) {
         return 0;
     }
+    // Se o peso do item for maior do que a capacidade da mochila, então  este item não pode ser colocado
+    // na mochila
 
-
-    if (peso[i] < capacidade) { // peso menor que a capacidade
-        somarValor = knaps(tamanhoMochila, peso, valor, capacidade - peso[i], i + 1) + valor[i];
-        contaValor = knaps(tamanhoMochila, peso, valor, capacidade, i + 1);
-        int m = max(somarValor, contaValor);
+    if (peso[itens] < capacidade) { // peso menor que a capacidade
+        somarPesoMochila = knaps(tamanhoMochila, peso, valor, capacidade - peso[itens], itens + 1) + valor[itens];
+        contaValor = knaps(tamanhoMochila, peso, valor, capacidade, itens + 1); // soma o peso da mochila atual
+        int m = max(somarPesoMochila, contaValor);
         return m;
     } else {
-        contaValor = knaps(tamanhoMochila, peso, valor, capacidade, i + 1);
+        contaValor = knaps(tamanhoMochila, peso, valor, capacidade, itens + 1);
         return contaValor;
     }
 }
@@ -973,13 +975,6 @@ int main(int argc, char **argv) {
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 
-    int matriz[tamMatriz][tamMatriz] = {
-            {0, 2,  4,  6,  8},
-            {2, 0,  14, 16, 18},
-            {4, 14, 0,  26, 28},
-            {6, 16, 26, 0,  38},
-            {8, 18, 28, 38, 0}
-
 
 //              1   2   3   4   5
 //          1  {0,  2,  4,  6,  8},
@@ -987,10 +982,18 @@ int main(int argc, char **argv) {
 //          3  {4, 14,  0,  26, 28},
 //          4  {6, 16, 26,  0,  38},
 //          5  {8, 18, 28, 38,   0}
-    };
 
-
-    caixeiroViajante(matriz);
+//    cout << "Algortimo 7: "<< endl;
+//    cout << "Caixeiro Viajante" << endl;
+//    int matriz[tamMatriz][tamMatriz] = {
+//            {0, 2,  4,  6,  8},
+//            {2, 0,  14, 16, 18},
+//            {4, 14, 0,  26, 28},
+//            {6, 16, 26, 0,  38},
+//            {8, 18, 28, 38, 0}
+//    };
+//
+//    caixeiroViajante(matriz);
 
 
 
@@ -1003,15 +1006,15 @@ int main(int argc, char **argv) {
     //------------------------                        -------------------------------
     //------------------------                        -------------------------------
 
-//    cout << "Algoritmo N° 8: problemaDaMochila" << endl;
-//
-//    int n = 5;
-//    int peso[5] = {2, 4, 3, 5, 5};
-//    int valor[5] = {3, 4, 1, 2, 6};
-//    int capacidade = 12;
-//
-//    cout << "Capacidade: " << capacidade << endl;
-//    cout << "Valor maximo da mochila: " << knaps(n, peso, valor, capacidade, 0) << endl;
+    cout << "Algoritmo N° 8: problemaDaMochila" << endl;
+
+    int n = 5;
+    int peso[n]  = {2, 4, 3, 5, 5};
+    int valor[n] = {3, 4, 1, 2, 6};
+    int capacidade = 12;
+
+  //  cout << "Capacidade: " << capacidade << endl;
+    cout << "Valor maximo da mochila: " << knaps(n, peso, valor, capacidade, 0) << endl;
 
 
 //9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
