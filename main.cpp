@@ -224,12 +224,14 @@ int permuta(vector<int> vetor, int inf, int sup) {
 
 // O(n!)
 int caixeiroViajante(int matrizV[tamMatriz][tamMatriz]) {
-    std::vector<int> vizinho;  // armazena as permutações da cidades há serem visitadas.
-    std::vector<vector<int>> vetorMenorCaminho; //armazena as permutações, para descobrir qual o vertice de menor caminho
-    int contPermutacao = 0; // soma chamada permutação (posição)
+    std::vector<int> vizinho;  // armazena os caminhos há serem percorridos.
     int pesoMinCaminho = INT_MAX; // armazenar peso mínimo do vetorMenorCaminho caminho.
-    int countCaminhoTotal = 0, countMenorCaminho = 0;
-    int  contP = 0; // conta a qtidade de permutação de menor peso
+
+    int countCaminhoTotal = 0;
+    int countMenorCaminho = 0;
+    int contPermutacao = 0; // soma chamada permutação (posição)
+    std::vector<vector<int>> vetorMenorCaminho; //armazena as permutações, para descobrir qual o vertice de menor caminho
+    int contP = 0; // conta a qtidade de permutação de menor peso
 
     for (int i = 0; i < tamMatriz; i++) {
         vizinho.push_back(i); // inicializa o vetor de permutação.
@@ -243,7 +245,7 @@ int caixeiroViajante(int matrizV[tamMatriz][tamMatriz]) {
 //        for (int i = 0; i < vizinho.size(); i++) {
 //            cout << "   " << vizinho[i]; // imprime o vetor
 //        }
-       // cout << " ----- " << contPermutacao << endl;
+        // cout << " ----- " << contPermutacao << endl;
 
         contPermutacao++;
         // a cada nova permutação, os dados são inicializados
@@ -275,12 +277,13 @@ int caixeiroViajante(int matrizV[tamMatriz][tamMatriz]) {
         //enquanto existir uma permutação, a função irá retornar TRUE.
     } while (proximaPermutacao(vizinho.begin(), vizinho.end()));
 
-    cout <<  endl;
+
+    cout << endl;
     cout << "Total de caminhos percorridos: " << countCaminhoTotal << endl;
     cout << "O vetorMenorCaminho peso: " << pesoMinCaminho << " ,no caminho: " << contP << endl;
-    cout << "Permutação: " ;
+    cout << "Permutação: ";
     for (int i = 0; i < tamMatriz; i++) {
-        cout <<  vetorMenorCaminho[contP][i] << " ";
+        cout << vetorMenorCaminho[contP][i] << " ";
     }
 
 
@@ -971,11 +974,11 @@ int main(int argc, char **argv) {
 //----------------------------------------------------------------------------------------------------------------------
 
     int matriz[tamMatriz][tamMatriz] = {
-            {0,  2,  4,  6,  8},
-            {2,  0,  14, 16, 18},
-            {4, 14,  0,  26, 28},
-            {6, 16, 26,   0, 38},
-            {8, 18, 28,  38,  0}
+            {0, 2,  4,  6,  8},
+            {2, 0,  14, 16, 18},
+            {4, 14, 0,  26, 28},
+            {6, 16, 26, 0,  38},
+            {8, 18, 28, 38, 0}
 
 
 //              1   2   3   4   5
